@@ -15,7 +15,7 @@ const PortfolioSchema = new Schema({
         required:true
     },
     date:{
-        typr:String,
+        type:Date,
         default:Date.now()
     }
 })
