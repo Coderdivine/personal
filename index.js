@@ -38,7 +38,7 @@ app.post("/post-project",(req,res)=>{
             res.status(201).json({
                 message:`posted`
             })
-        })
+        }).catch(err=>{res.status(401).json({message:err.message,status:401})})
     }catch(error){
         res.status(500).json({
             message:`Error occured`,
