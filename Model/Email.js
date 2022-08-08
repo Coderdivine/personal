@@ -63,8 +63,8 @@ const PortfolioService = new Schema({
     required:true
    },
    updated_at:{
-    type:String,
-    required:true
+    type:Date,
+    required:false
    }
 
 
