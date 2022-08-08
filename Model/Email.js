@@ -49,7 +49,7 @@ const PortfolioService = new Schema({
     required:false
    },
    order:{
-    type:Number
+    type:String
    },
    roles:{
     type:String
