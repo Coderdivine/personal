@@ -12,7 +12,7 @@ const db = mongoose.connection
 db.on("error",(err)=>{console.log(err)})
 db.once("open",()=> console.log("Connected to database"))
 //process.env.AUTH_URI || 'mongodb://localhost:27017/port';
-mongoose.connect('mongodb://localhost:27017/port');
+mongoose.connect(process.env.AUTH_URI);
 const port = process.env.PORT || 5099;
 const uuid = require("uuid");
 const {PortfolioServices,PortfolioSchemas,Valabilitys} = require("./Model/Email");
