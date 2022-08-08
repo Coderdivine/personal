@@ -12,13 +12,15 @@ const db = mongoose.connection
 db.on("error",(err)=>{console.log(err)})
 db.once("open",()=> console.log("Connected to database"))
 //process.env.AUTH_URI || 'mongodb://localhost:27017/port';
-mongoose.connect(process.env.AUTH_URI);
+mongoose.connect('mongodb://localhost:27017/port');
 const port = process.env.PORT || 5099;
+const uuid = require("uuid");
 const {PortfolioServices,PortfolioSchemas,Valabilitys} = require("./Model/Email");
 
 app.post("/post-project",(req,res)=>{
     let {title,description,github_url,image_link,live_link,
         order,roles,technologies_json} = req.body;
+        const id  = uuid.v4()
         
     try{
         const Enter = new PortfolioServices({
