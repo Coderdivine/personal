@@ -131,5 +131,5 @@ app.get("/check",(req,res)=>{
 
 
 app.listen(port, () => {
-    console.log(`My Server is running on http://localhost:${port}`);
-   }) 
+    console.log(`My Server is running on http://localhost:${port} sy something`);
+   });
