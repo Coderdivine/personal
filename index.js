@@ -127,6 +127,19 @@ app.get("/check",(req,res)=>{
         })
     }
 })
+app.get("/currently",(req,res)=>{
+    try{
+        res.status(200).json({
+            message:"TRUE",
+            currently:true
+        })
+    }catch(error){
+        res.status(500).json({
+            message:"Unable to track my current status",
+            currently:false
+        })
+    }
+})
 
 
 
