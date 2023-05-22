@@ -18,7 +18,8 @@ const PortfolioSchema = new Schema({
         type:Date,
         default:Date.now()
     }
-})
+});
+
 const PortfolioService = new Schema({
    created_at:{
     type:Date,
@@ -69,14 +70,16 @@ const PortfolioService = new Schema({
 
 
    
-})
+});
+
 const Valability = new Schema({
        is_available:{
         type:Boolean,
         required:true
        }
 
-})
+});
+
 const Valabilitys = mongoose.model("Valability",Valability);
 const PortfolioSchemas = mongoose.model("PortfolioSchema",PortfolioSchema);
 const PortfolioServices = mongoose.model("PortfolioService",PortfolioService);

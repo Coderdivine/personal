@@ -20,9 +20,9 @@ const {PortfolioServices,PortfolioSchemas,Valabilitys} = require("./Model/Email"
 app.post("/post-project",(req,res)=>{
     let {title,description,github_url,image_link,live_link,
         order,roles,technologies_json} = req.body;
-        const id  = uuid.v4()
-        
+        const id  = uuid.v4()       
     try{
+
         const Enter = new PortfolioServices({
             title,
             description,
@@ -34,11 +34,14 @@ app.post("/post-project",(req,res)=>{
             roles,
             technologies_json
         });
+
         Enter.save().then(corn=>{
             res.status(201).json({
-                message:`posted`
+                message:`posted...`
             })
-        }).catch(err=>{res.status(401).json({message:err.message,status:401})})
+        }).catch(err=>{
+            res.status(401).json({message:err.message,status:401})
+        });
     }catch(error){
         res.status(500).json({
             message:`Error occured`,
