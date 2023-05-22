@@ -16,6 +16,7 @@ mongoose.connect(process.env.AUTH_URI);
 const port = process.env.PORT || 5099;
 const uuid = require("uuid");
 const {PortfolioServices,PortfolioSchemas,Valabilitys} = require("./Model/Email");
+const Mailer = require("./Service/MailSender");
 
 app.post("/post-project",(req,res)=>{
     let {title,description,github_url,image_link,live_link,
@@ -71,16 +72,14 @@ async (req,res)=>{
     }
 });
 
-app.post("/post-email",(req,res)=>{
+app.post("/post-email", async (req,res)=>{
     let {name,email,message} = req.body;
     try{
          const PortfolioSchemass = new PortfolioSchemas({
             name,email,message
          });
-         PortfolioSchemass.save().then(corn=>{
-            res.status(201).json({
-                message:"Posted",
-            })
+         PortfolioSchemass.save().then(async (corn)=>{
+            const sendMail = await Mailer.sendAlert(res,{message:message,subject:name, email:email});
          })
     }catch(error){
         res.status(500).json({
