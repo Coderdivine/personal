@@ -48,23 +48,28 @@ app.post("/post-project",(req,res)=>{
             status:500
         })
     }
-})
-app.get("/get-project",(req,res)=>{
+});
+
+app.get("/get-project",
+async (req,res)=>{
     try{
-        PortfolioServices.find()
-        .then(corn=>{
-            res.status(200).json({
-                message:`Found`,
-                data:corn
-            })
-        })
+        const corn = await PortfolioServices.find();
+        console.log({ corn });
+
+        res.status(200).json({
+            message:`Found`,
+            data:corn
+        });
+
     }catch(error){
+        console.log({ err:error.message });
         res.status(500).json({
             message:`${error.message}`,
             status:500
         })
     }
-})
+});
+
 app.post("/post-email",(req,res)=>{
     let {name,email,message} = req.body;
     try{
@@ -81,7 +86,8 @@ app.post("/post-email",(req,res)=>{
             message:`${error.message}`
         })
     }
-})
+});
+
 app.get("/get-email",(req,res)=>{
     try{
     
@@ -96,7 +102,8 @@ app.get("/get-email",(req,res)=>{
             message:errors.message
         })
     }
-})
+});
+
 app.post("/post-check",(req,res)=>{
     let { is_available} = req.body;
     try{
@@ -114,7 +121,8 @@ app.post("/post-check",(req,res)=>{
             message:error.message
         })
     }
-})
+});
+
 app.get("/check",(req,res)=>{
     try{
         Valabilitys.find().then(corn=>{
@@ -129,7 +137,8 @@ app.get("/check",(req,res)=>{
             status:500
         })
     }
-})
+});
+
 app.get("/currently",(req,res)=>{
     try{
         res.status(200).json({
@@ -142,10 +151,11 @@ app.get("/currently",(req,res)=>{
             currently:false
         })
     }
-})
+});
+
 
 
 
 app.listen(port, () => {
-    console.log(`My Server is running on http://localhost:${port} sy something`);
+    console.log(`My Server is running on (http://localhost:${port}) something`);
    });
