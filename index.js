@@ -53,8 +53,9 @@ app.post("/post-project",(req,res)=>{
 app.get("/get-project",
 async (req,res)=>{
     try{
-        const corn = await PortfolioServices.find();
-        console.log({ corn });
+        let corn = await PortfolioServices.find();
+        corn = corn?corn.reverse():[];
+        console.log({ corn, len:corn.length });
 
         res.status(200).json({
             message:`Found`,
