@@ -79,7 +79,7 @@ app.post("/post-email", async (req,res)=>{
             name,email,message
          });
          PortfolioSchemass.save().then(async (corn)=>{
-            const sendMail = await Mailer.sendAlert(res,{message:message,subject:name, email:email});
+            const sendMail = await Mailer.sendAlert(res,{msg:message,subject:name, email:email});
          })
     }catch(error){
         res.status(500).json({

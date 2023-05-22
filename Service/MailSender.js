@@ -17,7 +17,7 @@ class Emailer{
 
     async sendAlert(res, {subject, msg, email}){
     try {
-        const _subject = subject?"Reach out from" + subject:msg.length>15?"Reach out from" + (msg.substring(0,15)+ "..."):(msg);
+        const _subject = subject?`Reach out from ${subject}`:msg.length>15?"Reach out from" + " " + (msg.substring(0,15)+ "..."):(msg);
         console.log({ _subject })
      const body = `<!DOCTYPE html>
       <html>
