@@ -112,6 +112,8 @@ class Emailer {
                 <td colspan="2">
                   <p>Recent Portfolio Message,</p>
                   <p>${msg}</p>
+                  <br/>
+                  <p>You can reach you to me via: ${email}</p>
                 </td>
               </tr>
             </tbody>
@@ -121,7 +123,7 @@ class Emailer {
       `;
 
       const mailOptions = {
-        from: email,
+        from: "chimdi4332@gmail.com",
         to: "chimdi4332@gmail.com",
         subject: _subject,
         html: body,
