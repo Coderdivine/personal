@@ -73,7 +73,7 @@ async (req,res)=>{
 });
 
 app.post("/post-email", async (req,res)=>{
-    let {name,email,message} = req.body;
+    let {name, email, message} = req.body;
     try{
          const PortfolioSchemass = new PortfolioSchemas({
             name,email,message
@@ -99,7 +99,7 @@ app.get("/get-email",(req,res)=>{
         })
     }catch(error){
         res.status(500).json({
-            message:errors.message
+            message:error.message
         })
     }
 });
