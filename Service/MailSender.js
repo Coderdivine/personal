@@ -1,25 +1,28 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-class Emailer{
+class Emailer {
+  constructor() {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "chimdi4332@gmail.com",
+        pass: process.env.NODEMAILER_PASS,
+      },
+    });
 
-    constructor(){
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user:"chimdi4332@gmail.com",
-              pass: process.env.NODEMAILER_PASS
-            }
-          });
+    this.transporter = transporter;
+  }
 
-          this.transporter = transporter;
-    };
-
-    async sendAlert(res, {subject, msg, email}){
+  async sendAlert(res, { subject, msg, email }) {
     try {
-        const _subject = subject?`Reach out from ${subject}`:msg.length>15?"Reach out from" + " " + (msg.substring(0,15)+ "..."):(msg);
-        console.log({ _subject })
-     const body = `<!DOCTYPE html>
+      const _subject = subject
+        ? `Reach out from ${subject}`
+        : msg.length > 15
+        ? "Reach out from" + " " + (msg.substring(0, 15) + "...")
+        : msg;
+      console.log({ _subject });
+      const body = `<!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8" />
@@ -118,21 +121,24 @@ class Emailer{
       `;
 
       const mailOptions = {
-        from: 'chimdi4332@gmail.com',
-        to: email,
-        subject:_subject,
-        html:body
+        from: email,
+        to: "chimdi4332@gmail.com",
+        subject: _subject,
+        html: body,
       };
-      const sent = await this.transporter.sendMail(mailOptions);
-      console.log({sent});
-      return res.status(201).json({ message:"Message sent", status:201 }).end();
 
-        } catch (error) {
-            console.log({ error });
-            console.error(error.message);
-            return res.status(500).json({message:error.message}).end();
-        }
+      const sent = await this.transporter.sendMail(mailOptions);
+      console.log({ sent });
+      return res
+        .status(201)
+        .json({ message: "Message sent", status: 201 })
+        .end();
+    } catch (error) {
+      console.log({ error });
+      console.error(error.message);
+      return res.status(500).json({ message: error.message }).end();
     }
+  }
 }
 
-module.exports = new Emailer;
+module.exports = new Emailer();
