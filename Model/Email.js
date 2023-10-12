@@ -80,11 +80,48 @@ const Valability = new Schema({
 
 });
 
+const TalkBusiness = new Schema({
+       talkbusiness_id:{
+            type:String,
+            required:true 
+       },
+       name:{
+        type:String,
+        required:true 
+       },
+       description:{
+        type:String,
+        required:true 
+       },
+       media:{
+        type:String,
+        required:true,
+       },
+       amount:{
+        type:Number,
+        default:null,
+       },
+       piority:{
+            type:Number,
+            required:true
+       },
+       demos:[
+         {
+            name:String,
+            link:String,
+            description:String
+         }
+       ]
+});
+
 const Valabilitys = mongoose.model("Valability",Valability);
 const PortfolioSchemas = mongoose.model("PortfolioSchema",PortfolioSchema);
 const PortfolioServices = mongoose.model("PortfolioService",PortfolioService);
+const PortfolioTalkBusiness = mongoose.model("PortfolioTalkBusiness",TalkBusiness);
+
 module.exports = {
     PortfolioServices,
     PortfolioSchemas,
-    Valabilitys
+    Valabilitys,
+    PortfolioTalkBusiness
 };

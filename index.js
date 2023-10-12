@@ -15,7 +15,7 @@ db.once("open",()=> console.log("Connected to database"))
 mongoose.connect(process.env.AUTH_URI);
 const port = process.env.PORT || 5099;
 const uuid = require("uuid");
-const {PortfolioServices,PortfolioSchemas,Valabilitys} = require("./Model/Email");
+const {PortfolioServices,PortfolioSchemas,Valabilitys, PortfolioTalkBusiness } = require("./Model/Email");
 const Mailer = require("./Service/MailSender");
 
 app.post("/post-project",(req,res)=>{
@@ -128,7 +128,7 @@ app.get("/check",(req,res)=>{
         Valabilitys.find().then(corn=>{
             res.status(200)
             .json(
-                {message:"Found",data:corn,status:200
+                {message:"Found", data:corn,status:200
         })
         })
     }catch(error){
@@ -142,8 +142,8 @@ app.get("/check",(req,res)=>{
 app.get("/currently",(req,res)=>{
     try{
         res.status(200).json({
-            message:"TRUE",
-            currently:true
+            message:"FALSE",
+            currently:false
         })
     }catch(error){
         res.status(500).json({
@@ -153,9 +153,92 @@ app.get("/currently",(req,res)=>{
     }
 });
 
+app.post("/talk-business", async (req, res)=>{
+    try {
+        const { name, description, demos, piority, media, amount } = req.body;
+        const postBusiness = new PortfolioTalkBusiness({
+            name,
+            piority,
+            description,
+            demos, 
+            talkbusiness_id: uuid.v4(), 
+            media, 
+            amount 
+        });
+        const saved = await postBusiness.save();
+        res.status(201).json({
+            message:"Fetch Completed",
+            data: saved,
+            sttaus:201
+        });
+
+    } catch (error) {
+        console.log({ error });
+        res.status(500).json({
+            message:"Unable to post Talk Business.",
+            status:500
+        })
+    }
+});
+
+app.post("/talk-business-update", async (req, res)=>{
+    try {
+        const talkbusiness_id = req.body.talkbusiness_id;
+        const updatedUser = await PortfolioTalkBusiness.findOneAndUpdate(
+            { talkbusiness_id },
+            { $set: req.body },
+            { new: true }
+          );
+          res.status(201).json({
+            message:"Update Completed",
+            data: updatedUser,
+            sttaus:201
+        });
+        
+    } catch (error) {
+        console.log({ error });
+    }
+})
+
+app.get("/talk-business", async (req, res)=>{
+    try {
+        const getAllBusiness = await PortfolioTalkBusiness.find({}).sort({ piority: -1 });
+        res.status(200).json({
+            message:"Fetch Completed",
+            data: getAllBusiness,
+            sttaus:200
+        });
+
+    } catch (error) {
+        console.log({ error });
+        res.status(500).json({
+            message:"Unable to fetch Talk Business.",
+            status:500
+        })
+    }
+});
+
+app.get("/talk-business/:id", async (req, res)=>{
+    try {
+        const dlt = await PortfolioTalkBusiness.deleteOne({ talkbusiness_id: req.params.id });
+        res.status(200).json({
+            message:"Fetch Completed",
+            data: dlt,
+            sttaus:200
+        });
+
+    } catch (error) {
+        console.log({ error });
+        res.status(500).json({
+            message:"Unable to fetch Talk Business.",
+            status:500
+        })
+    }
+});
+
 
 
 
 app.listen(port, () => {
-    console.log(`My Server is running on (http://localhost:${port}) something`);
+    console.log(`My Server is running on (http://localhost:${port}).`);
    });
