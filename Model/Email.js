@@ -63,6 +63,14 @@ const PortfolioService = new Schema({
     type:String,
     required:true
    },
+   tag:{
+    type:String,
+    required:true
+   },
+   blog_url:{
+    type:String,
+    required:true
+   },
    updated_at:{
     type:Date,
     required:false
