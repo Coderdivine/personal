@@ -33,6 +33,10 @@ const PortfolioService = new Schema({
     type:String,
     required:true
    },
+   product_url:{
+    type:String,
+    required:true
+   },
    id:{
     type:String,
     required:true
@@ -64,7 +68,7 @@ const PortfolioService = new Schema({
     required:true
    },
    tag:{
-    type:String,
+    type:[String],
     required:true
    },
    blog_url:{
