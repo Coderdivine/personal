@@ -20,10 +20,33 @@ const PortfolioSchema = new Schema({
     }
 });
 
+const UserSchema = new Schema({
+ user_id: {
+    type: String,
+    required: true
+ },
+ username: {
+    type: String,
+    required: false
+ },
+ firstname: {
+    type: String,
+    required: false
+ },
+ lastname: {
+    type: String,
+    required: false
+ }
+});
+
 const PortfolioService = new Schema({
    created_at:{
     type:Date,
     default:Date.now()
+   },
+   user_id: {
+    type: String,
+    required: false
    },
    description:{
     type:String,
@@ -88,6 +111,7 @@ const PortfolioService = new Schema({
    
 });
 
+
 const Valability = new Schema({
        is_available:{
         type:Boolean,
@@ -131,6 +155,7 @@ const TalkBusiness = new Schema({
 });
 
 const Valabilitys = mongoose.model("Valability",Valability);
+const UserDB = mongoose.model("PortfolioUserSchema", UserSchema);
 const PortfolioSchemas = mongoose.model("PortfolioSchema",PortfolioSchema);
 const PortfolioServices = mongoose.model("PortfolioService",PortfolioService);
 const PortfolioTalkBusiness = mongoose.model("PortfolioTalkBusiness",TalkBusiness);
@@ -139,5 +164,6 @@ module.exports = {
     PortfolioServices,
     PortfolioSchemas,
     Valabilitys,
-    PortfolioTalkBusiness
+    PortfolioTalkBusiness,
+    UserDB
 };

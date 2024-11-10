@@ -22,6 +22,7 @@ const {
   PortfolioSchemas,
   Valabilitys,
   PortfolioTalkBusiness,
+  UserDB,
 } = require("./Model/Email");
 const Mailer = require("./Service/MailSender");
 
@@ -65,6 +66,22 @@ app.post("/post-project", async (req, res) => {
       message: `Error occured`,
       status: 500,
     });
+  }
+});
+
+app.post("/create-user", async (req, res) => {
+  const user_id = uuid.v4();
+  const body = req.body;
+  console.log({ user_id, body });
+  try {
+    const newUser = new UserDB({ ...body, user_id });
+    const saved = await newUser.save();
+    res.status(201).json({ message: "User created", data: saved, status: 201 });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      status: 500,
+    })
   }
 });
 
