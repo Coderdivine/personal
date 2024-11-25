@@ -15,7 +15,7 @@ db.on("error", (err) => {
 db.once("open", () => console.log("Connected to database"));
 //process.env.AUTH_URI || 'mongodb://localhost:27017/port';
 mongoose.connect(process.env.AUTH_URI);
-const port = process.env.PORT || 5099;
+const port = process.env.PORT || 5030;
 const uuid = require("uuid");
 const {
   PortfolioServices,
@@ -95,7 +95,7 @@ app.post("/update-project", async (req, res) => {
 
 app.get("/get-project", async (req, res) => {
   try {
-    let corn = await PortfolioServices.find().sort({ created_at: -1 });
+    let corn = await PortfolioServices.find().sort({ order: -1, created_at: -1 });
 
     res.status(200).json({
       message: `Found`,
