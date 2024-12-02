@@ -1,2 +1,2 @@
 # personal site 
-(Personal Site Link)[https://heischimdi.xyz] 
+(Personal Site Link)[https://chimdi.aesthery.com] 
